@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-
-import {Hero} from './hero';
-import {HeroService} from './hero.service';
-import { Router } from '@angular/router';
+import {Component, OnInit} from "@angular/core";
+import {Hero} from "./hero";
+import {HeroService} from "./hero.service";
+import {Router} from "@angular/router";
+import {HeroSearchComponent} from "./hero-search.component";
 
 @Component({
-  moduleId:module.id,
+  moduleId: module.id,
   selector: 'my-dashboard',
   template: `<h2>My Dashboard</h2>
   <h3>Top Heroes</h3>
@@ -16,15 +16,16 @@ import { Router } from '@angular/router';
       </div>
     </div>
   </div>
+  <hero-search></hero-search>
   `,
-  styleUrls:['dashboard.component.css']
+  styleUrls: ['dashboard.component.css'],
+  directives: [HeroSearchComponent]
 })
 export class DashboardComponent implements OnInit {
   heroes:Hero[] = [];
 
-  constructor(
-    private router: Router,
-    private heroService: HeroService) {
+  constructor(private router:Router,
+              private heroService:HeroService) {
   }
 
   ngOnInit() {
@@ -32,7 +33,7 @@ export class DashboardComponent implements OnInit {
       .then(heroes => this.heroes = heroes.slice(1, 5));
   }
 
-  gotoDetail(hero: Hero) {
+  gotoDetail(hero:Hero) {
     let link = ['/detail', hero.id];
     this.router.navigate(link);
   }
